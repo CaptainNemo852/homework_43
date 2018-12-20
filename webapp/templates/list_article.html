@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Статьи{% endblock %}
+{% block menu %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'article_list' %}">Статьи</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'user_list' %}">Пользователи</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'article_create' %}">Создать статью</a>
+        </li>
+{% endblock %}
+{% block content %}
+    <div class="mt-3">
+        <form action="{% url 'article_list' %}" method="GET">
+            {% csrf_token %}
+            {{ form.article_name.label }}: {{ form.article_name }}
+            <button class="btn btn-primary" type="submit">Искать</button>
+        </form>
+    </div>
+        {% for article in article_list %}
+            <div class="mb-4 mt-4">
+                <h4><a href="{% url 'article_detail' article.pk %}">{{ article.title }}</a></h4>
+                <h6>Автор: {{ article.author.name }}</h6>
+            </div>
+        {% endfor %}
+{% endblock %}

@@ -1,0 +1,8 @@
+<div class="ml-5">
+<h5>{{ subcomment.user.name }}:</h5>
+    <p><i>{{ subcomment.text }}</i><a href="{% url 'comment_update' subcomment.pk %}"><i class="fas fa-eye-dropper ml-3"></i></a></p>
+
+    {% for comment in comment.comment.all %}
+        {% include 'recursive_include.html' with subcomment=comment %}
+    {% endfor %}
+</div>

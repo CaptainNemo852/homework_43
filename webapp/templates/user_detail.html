@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Пользователь{% endblock %}
+{% block menu %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'article_list' %}">Cтатьи</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'user_list' %}">Пользователи</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'article_create' %}">Создать статью</a>
+        </li>
+{% endblock %}
+{% block content %}
+        <h1 class="mt-4">{{ user.name }}</h1>
+    <div class="mb-4">
+        <p class="mb-2"><i>Статьи:</i></p>
+            {% for article in user.articles.all %}
+                <h5 class="ml-5">{{ article.title }}</h5>
+            {% endfor %}
+    </div>
+        <p class="mb-2"><i>Избранные:</i></p>
+            {% for favorites in user.favorites.all %}
+                <h6 class="ml-5">{{ favorites.title }}</h6>
+            {% endfor %}
+{% endblock %}

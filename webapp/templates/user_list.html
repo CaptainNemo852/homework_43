@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Пользователи{% endblock %}
+{% block menu %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'article_list' %}">Статьи</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'user_list' %}">Пользователи</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'article_create' %}">Создать статью</a>
+        </li>
+{% endblock %}
+{% block content %}
+    {% for user in user_list %}
+        <h4 class="mt-4"><a href="{% url 'user_detail' user.pk %}">{{ user.name }}</a></h4>
+    {% endfor %}
+{% endblock %}

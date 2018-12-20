@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Статья{% endblock %}
+{% block menu %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'article_list' %}">Статьи</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'user_list' %}">Пользователи</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'article_create' %}">Создать статью</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'article_update' article.pk %}">Редактировать статью</a>
+        </li>
+
+{% endblock %}
+{% block content %}
+    <div>
+        <h1 class="text-center mt-4 mb-3">{{ article.title }}</h1>
+            <p class="mb-3">{{ article.text }}</p>
+        <h4 class="text-right mb-3">Автор: {{ article.author.name }}</h4>
+    </div>
+    <div class="mb-5">
+        <h4>Комментарии: <a href="{% url 'comment_create' %}"><i class="fas fa-plus ml-3"></i></a></h4>
+            {% for comment in article.comment.all %}
+                {% include 'recursive_include.html' with subcomment=comment %}
+            {% endfor %}
+    </div>
+    <div>
+        <h5>Оценки:</h5>
+            {% for mark in article.mark.all %}
+                <p class="ml-5">{{ mark.user.name }}: <i>{{ mark.mark }}</i></p>
+            {% endfor %}
+    </div>
+{% endblock %}
